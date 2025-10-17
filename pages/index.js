@@ -1,6 +1,12 @@
+// pages/index.js
+"use client";
+
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import FileUploader from "../components/FileUploader";
-import WalletConnect from "../components/WalletConnect";
+
+// WalletConnect is browser-only, disable SSR
+const WalletConnect = dynamic(() => import("../components/WalletConnect"), { ssr: false });
 
 export default function Home() {
   const [evmAddress, setEvmAddress] = useState(null);
@@ -17,11 +23,19 @@ export default function Home() {
         <FileUploader onUploaded={setCid} />
       </div>
 
+      {evmAddress && <p className="mt-4">✅ Connected EVM Address: {evmAddress}</p>}
+      {dotAddress && <p className="mt-2">✅ Connected Polkadot Address: {dotAddress}</p>}
+
       {cid && (
         <div className="mt-8 p-4 bg-gray-800 rounded-lg">
           <p>✅ File stored on Storacha IPFS</p>
           <p><strong>CID:</strong> {cid}</p>
-          <a href={`https://storacha.io/ipfs/${cid}`} target="_blank" rel="noreferrer">
+          <a
+            href={`https://storacha.io/ipfs/${cid}`}
+            target="_blank"
+            rel="noreferrer"
+            className="underline text-green-400"
+          >
             View File
           </a>
         </div>

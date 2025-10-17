@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { web3Enable, web3Accounts } from "@polkadot/extension-dapp";
