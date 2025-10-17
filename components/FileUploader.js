@@ -16,20 +16,12 @@ export default function FileUploader({ onUploaded }) {
   };
 
   return (
-    <div className="flex flex-col gap-4 items-center">
+    <div>
       <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-      <button
-        onClick={handleUpload}
-        className="bg-green-600 px-4 py-2 rounded-lg text-white"
-        disabled={loading}
-      >
-        {loading ? "Uploading..." : "Upload to IPFS"}
+      <button onClick={handleUpload} disabled={loading}>
+        {loading ? "Uploading..." : "Upload"}
       </button>
-      {cid && (
-        <p>
-          ✅ Uploaded: <a href={`https://ipfs.io/ipfs/${cid}`} target="_blank" rel="noreferrer">{cid}</a>
-        </p>
-      )}
+      {cid && <p>Uploaded! CID: {cid}</p>}
     </div>
   );
 }
